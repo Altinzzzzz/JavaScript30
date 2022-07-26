@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="calcStyle.css">
@@ -10,24 +11,34 @@
 </head>
 <body>
     <div class = "main">
-        <button class = "clear"> AC </button>
-        <button class = "numbers">7</button>
-        <button class = "numbers">8</button>
-        <button class = "numbers">9</button>
-        <button class = "numbers">4</button>
-        <button class = "numbers">5</button>
-        <button class = "numbers">6</button>
-        <button class = "numbers">1</button>
-        <button class = "numbers">2</button>
-        <button class = "numbers">3</button>
-        <button class = "numbers" id = "zero">0</button>
-        <button class = "point">.</button>
-        <button class = "operators" id = "add">+</button>
-        <button class = "operators" id = "substract">-</button>
-        <button class = "operators" id = "multiply">*</button>
-        <button class = "operators" id = "divide">/</button>
-        <button class = "operators" id = "equals">=</button>
+        <button class = "clear" style = "grid-area: clear"> AC </button>
+        <button class = "numbers" id = "zero" style = "grid-area: zero">0</button>
+        <button class = "numbers" style = "grid-area: one">1</button>
+        <button class = "numbers" style = "grid-area: two">2</button>
+        <button class = "numbers" style = "grid-area: three">3</button>
+        <button class = "numbers" style = "grid-area: four">4</button>
+        <button class = "numbers" style = "grid-area: five">5</button>
+        <button class = "numbers" style = "grid-area: six">6</button>
+        <button class = "numbers" style = "grid-area: seven">7</button>
+        <button class = "numbers" style = "grid-area: eight">8</button>
+        <button class = "numbers" style = "grid-area: nine">9</button>
+        <button class = "point" style = "grid-area: point">.</button>
+        <button class = "backspace" style = "grid-area: backspace">-</button>
+        <button class = "operators" style = "grid-area: add">+</button>
+        <button class = "operators" style = "grid-area: substract">-</button>
+        <button class = "operators" style = "grid-area: multiply">x</button>
+        <button class = "operators" style = "grid-area: divide">/</button>
+        <button class = "operators" style = "grid-area: equals">=</button>
+        <button class = "operators" style = "grid-area: power">x<sup>y</sup></button>
+        <button class = "operators" style = "grid-area: root">&#8730;</button>
+        <button class = "operators" style = "grid-area: modulo">%</button>
+        <button class = "special" style = "grid-area: abs">ABS</button>
+        <button class = "special" style = "grid-area: powerOf2">x<sup>2</sup></button>
+        <button class = "special" style = "grid-area: divideX">1/x</button>
+        <button class = "special" style = "grid-area: rootOf2"><sup>2</sup>&#8730;</button>
     </div>
-    <div class = "field"></div>
+    <div id = "fieldDiv">
+        <p class = "field"></p>
+    </div>
 </body>
 </html>

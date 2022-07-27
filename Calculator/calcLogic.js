@@ -10,12 +10,44 @@ var numbers = document.querySelectorAll('.numbers');
 var operators = document.querySelectorAll('.operators');
 var point = document.querySelector('.point');
 var specials = document.querySelectorAll('.special');
+var backspace = document.querySelector('.backspace');
 
 var count = false;
 var secondCount = false;
-var minusActive = false;
 
 clear.addEventListener('click', clearText);
+
+backspace.addEventListener('click', function(){
+    if(theSecondNumber.length != 0){
+        if(theSecondNumber.length == 2 && theSecondNumber[1] == '.' && theSecondNumber[0] == '0'){
+            theSecondNumber = [];
+            show.textContent = theFirstNumber.join('') + operator;
+        } else {
+            theSecondNumber.pop();
+            show.textContent = theFirstNumber.join('') + operator + theSecondNumber.join('');
+        }
+    } else if(operator != null){
+        operator = null;
+        show.textContent = theFirstNumber.join('');
+    } else {
+        if(theFirstNumber[0] > 9 || theFirstNumber[0] < -9){
+            theFirstNumber[0] = Math.floor(theFirstNumber[0] / 10);
+            console.log('arriti ktu');
+            show.textContent = theFirstNumber[0];
+            return;
+        } // will remove only the first number even if the firstNumber[0] after a calculation is something like 304, it onlyremoves the 4 not the whole number.
+
+        if(theFirstNumber.length == 2 && theFirstNumber[1] == '.' && theFirstNumber[0] == '0'){
+            theFirstNumber = [];
+            show.textContent = '';
+            console.log('arriti ktu222');
+        } else {
+            theFirstNumber.pop();
+            show.textContent = theFirstNumber.join('');
+            console.log('arriti ktu3333');
+        }
+    }
+});
 
 function clearText(){
     theFirstNumber = [];
@@ -30,8 +62,8 @@ for(var i = 0; i < numbers.length; i++){
     numbers[i].addEventListener('click', checkOccupation);
 
     numbers[i].style.color = "#b21900";
-    numbers[i].addEventListener('mouseout', () => { this.style.color = '#b21900'; });
-    numbers[i].addEventListener('mouseover', () => { this.style.color = '#ff3e1e'; });
+    numbers[i].addEventListener('mouseout', function(){ this.style.color = '#b21900'; });
+    numbers[i].addEventListener('mouseover', function(){ this.style.color = '#ff3e1e'; });
 }
 
 
@@ -46,13 +78,13 @@ for(var i = 0; i < specials.length; i++){
 point.addEventListener('click', checkOccupation);
 
 point.style.color = "#b21900";
-point.addEventListener('mouseout', () => { this.style.color = '#b21900';});
-point.addEventListener('mouseover', () => { this.style.color = '#ff3e1e';});
+point.addEventListener('mouseout', function(){ this.style.color = '#b21900'; });
+point.addEventListener('mouseover', function(){ this.style.color = '#ff3e1e'; });
 
 function checkPoint(){
     if(operator == null){
         
-        if(theFirstNumber.length == 0){
+        if(theFirstNumber.length == 0 || (theFirstNumber.length == 1 && theFirstNumber[0] == '-')){
             theFirstNumber.push('0');
             return true;
         }
@@ -74,10 +106,10 @@ function checkPoint(){
             theSecondNumber.push('0');
             return true;
         }
+    }
 
-        if(theSecondNumber.includes('.')){
-            return false;
-        }
+    if(theSecondNumber.includes('.')){
+        return false;
     }
 }
 
@@ -103,10 +135,6 @@ function checkNull(){
 
 
 function checkOccupation(){
-    if(theFirstNumber.length != 0){
-        minusActive = false;
-    }
-
     if(checkNull() == false){
         return;
     }
@@ -118,9 +146,25 @@ function checkOccupation(){
     }
 
     if(operator == null){
+        if(this.textContent == '0'){
+            if(theFirstNumber.length == 0){
+                show.textContent = '';
+            } else if (theFirstNumber.length == 1 && theFirstNumber[0] == '-'){
+                show.textContent = theFirstNumber.join('');
+            }
+
+            return;
+        }
+
         theFirstNumber.push(this.textContent);
         show.textContent = theFirstNumber.join('');
     } else {
+        if(this.textContent == '0'){
+            if(theSecondNumber.length == 0){
+                show.textContent = theFirstNumber.join('') + operator;
+                return;
+            }
+        }
         theSecondNumber.push(this.textContent);
         show.textContent = theFirstNumber.join('') + operator + theSecondNumber.join('');
     }
@@ -128,7 +172,7 @@ function checkOccupation(){
 
 
 function checkSpecial(){
-    if(theFirstNumber.length == 0 || operator != null && theSecondNumber.length != 0){
+    if((theFirstNumber.length == 0) || (operator != null && theSecondNumber.length != 0) || (theFirstNumber.length == 1 && theFirstNumber[0] == '-')){
         return;
     }
 
@@ -172,11 +216,15 @@ function checkSpecial(){
 function checkOperator(){
     if(theFirstNumber.length == 0){
         if(this.textContent == '-'){
+            theFirstNumber.push('-');
             show.textContent = this.textContent;
-            minusActive = true;
         }
         return;
-    } // won't show an operator first
+    }
+     // won't show an operator first
+    if(theFirstNumber.length == 1 && theFirstNumber[0] == '-'){
+        return;
+    }
 
     if(operator == null){
         if(this.textContent == '='){
@@ -240,6 +288,8 @@ function checkOperator(){
         operator = this.textContent; // if new operator is + - * /, then add it
         show.textContent += operator;
     }
+
+    console.log(typeof theFirstNumber[0]);
 }
 
 function operate(sign){

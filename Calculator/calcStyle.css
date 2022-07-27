@@ -13,8 +13,7 @@ body{
 
 .main{
     width: 50%;
-    border: 2px solid blue; 
-
+    border: 2px solid blue;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-areas: 
@@ -31,12 +30,13 @@ body{
     font-size: 30px;
     font-weight: bold;
     background-color: black;
-    color: #ae8003;
+    color: #be9625;
     cursor: pointer;
 }
 
 button:not(.numbers):hover{
-    color: #fac023;
+    color: #fcbd11;
+    border: 2px solid #ff3e1e;
 }
 
 #fieldDiv{
@@ -57,4 +57,9 @@ button:not(.numbers):hover{
 
 .field{
     margin-top: 10px;
+}
+
+#fieldDiv:hover{
+    border: 3px solid #ff3e1e;
+    color: blue;
 }
